@@ -19,7 +19,7 @@ Se trata de una práctica de Procesamiento de Lenguaje natural para el máster, 
 >
 > ACCESS_TOKEN_SECRET = "XXXXXXXXXXXXXXXXXXXX"
 
-1. Y por último para poder ejecutar el programa es necesario introducir por línea de comandos el argumento `-u` seguido del nombre de usuario del que se desea hacer el análisis. Por ejemplo:
+3. Y por último para poder ejecutar el programa es necesario introducir por línea de comandos el argumento `-u` seguido del nombre de usuario del que se desea hacer el análisis. Por ejemplo:
 >   `python . -u elonmusk`
 
 * ## Análisis de Temas

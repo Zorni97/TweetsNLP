@@ -1,5 +1,5 @@
 # Tweets NLP
-Se trata de una práctica de Procesamiento de Lenguaje natural para el máster, en la que creo un pequeño programa de análisis de sentimientos y de temas de tweets con la ayuda de la API de Twitter. El objetivo de esta práctica es poder analizar los temas de los que habla un usuario en sus tweets de las últimas 24 horas, y además llevar a cabo un simple análisis del sentimiento de los mismos. Como el modelo se ha entranado con un dataset en inglés, solo se podrá hacer este análisis a tweets escritos en inglés. 
+Se trata de una práctica de Procesamiento de Lenguaje natural para el máster, en la que creo un pequeño programa de análisis de sentimientos y de temas de tweets con la ayuda de la API de Twitter (se utiliza **tweepy** para hacer requests a la API). El objetivo de esta práctica es poder analizar los temas de los que habla un usuario en sus tweets de las últimas 24 horas, y además llevar a cabo un simple análisis del sentimiento de los mismos. Como el modelo se ha entranado con un dataset en inglés, solo se podrá hacer este análisis a tweets escritos en inglés. 
 ## Archivos
 1. `requirements.txt` donde se encuentras los paquetes necesarios de Python
 1. `main.py` se encarga de ejecutar el programa, y es donde hay que introducir los token de la API de twitter

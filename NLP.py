@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 
 
 class NLP(object):
+    #Se establece el momento del tiempo 24h atrás para buscar tweets con fecha posterior a ese momento
     __now = datetime.now()
     __prev = __now - timedelta(days=1)
     __now = __now.strptime(__now.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
@@ -43,6 +44,7 @@ class NLP(object):
         self.df_topic_keywords = pickle.load(open('./files/df_topic_keywords.pkl', 'rb'))
         self.stop_words = stopwords.words()
 
+    #método que devuelve el análisis de topics
     def topics(self, documents=None, vector=None):
 
         if documents is not None:
@@ -60,11 +62,13 @@ class NLP(object):
         topic_probability_scores = self.model.transform(tf)
         all_topics = [self.df_topic_keywords.iloc[np.argmax(entry), -1] for entry in topic_probability_scores]
         topics = Counter(all_topics)
+        
         plt.pie([float(v) for v in topics.values()], labels=[k for k in topics.keys()],
-                autopct='%1.1f%%', shadow=True, startangle=90)
-        plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+                autopct='%1.1f%%', startangle=90)
+        plt.title(f"Temas de @{self.screen_name}") 
         plt.show()
 
+    #método que devuelve el análisis de sentimiento
     def sentiment(self, documents=None):
 
         if documents is not None:
@@ -94,15 +98,12 @@ class NLP(object):
             100 * (len(self.tweets_with_sentiment) - len(neg_tweets) - len(pos_tweets)) / len(
                 self.tweets_with_sentiment), 2)))
 
-    @staticmethod
+    @staticmethod  # método estático que devuelve el sentimiento de los documentos/tweets que le pases
     def get_tweet_sentiment(tweet):
-        '''
-        Utility function to classify sentiment of passed tweet
-        using textblob's sentiment method
-        '''
-        # create TextBlob object of passed tweet text
+        
+        # Utiliza Textblob para analizar el sentimiento
         analysis = TextBlob(tweet)
-        # set sentiment
+        # Categorizar el sentimiento y devolverlo
         if analysis.sentiment.polarity > 0:
             return 'positive'
         elif analysis.sentiment.polarity == 0:
@@ -110,6 +111,7 @@ class NLP(object):
         else:
             return 'negative'
 
+    # En el caso de ser llamado, este método devuelve los tweets de las últimas 24 horas para el usuario introducido
     def __new_tweets(self):
 
         all_tweets = []
@@ -117,7 +119,7 @@ class NLP(object):
             new_tweets = self.__api.user_timeline(screen_name=self.screen_name,
                                                   count=200, tweet_mode="extended")
         except tweepy.TweepError as e:
-            # print error (if any)
+            # print error (si hay algún problema con tweepy)
             print("Error : " + str(e))
 
         print(f"Recibiendo Tweets de @{self.screen_name} de las últimas 24h:\n")
@@ -140,6 +142,7 @@ class NLP(object):
 
         return all_tweets
 
+    # Este método crea una lista de diccionarios por cada tweet, con su texto y sentimiento como keys
     def __tweet_dictionary(self):
 
         if len(self.tweets_with_sentiment) > 0:
@@ -148,12 +151,12 @@ class NLP(object):
             pass
 
         for tweet in self.tweets:
-            # empty dictionary to store required params of a tweet
+            # se crea un diccionario por cada tweet
             tweet_sentiment = {'text': tweet, 'sentiment': self.get_tweet_sentiment(tweet)}
-            # saving text of tweet
-            # saving sentiment of tweet
+            # se hace un append a la lista de tweets con sentimiento
             self.tweets_with_sentiment.append(tweet_sentiment)
 
+    # Devuelve un vector en función del vectorizador que se importe, teniendo como base los documentos lematizados
     def __vector(self, documents):
 
         lemmatized_documents = []

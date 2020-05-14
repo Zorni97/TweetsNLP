@@ -30,3 +30,9 @@ Tras el entrenamiento, obtuvimos 15 topics, que en base a las palabras que mejor
 
 * ## Análisis de Sentimientos
 El análisis de sentimientos en cambio no tuvo entrenamiento previo con dataset, sino que se utilizo la librería **Textblob**, que pasándole los nuevos tweets, los da un score [-1, 1] que clasificaría a los tweets en negativos si es menor que 0, en positivos si es mayor y en neutrales si es igual a 0. 
+
+* ## Visualización
+Temas:
+![Pie Chart](images/piechart.PNG)
+Sentimiento:
+![Terminal](images/sentiment.PNG)

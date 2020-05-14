@@ -90,7 +90,7 @@ class NLP(object):
             round(100 * len(neg_tweets) / len(self.tweets_with_sentiment), 2)))
         # Porcentaje tweets neutrales
         print("Porcentaje tweets neutrales: {} % \
-              ".format(round(
+              \n".format(round(
             100 * (len(self.tweets_with_sentiment) - len(neg_tweets) - len(pos_tweets)) / len(
                 self.tweets_with_sentiment), 2)))
 
